@@ -22,8 +22,11 @@ public class JSONParser {
     public JSONParser() {}
     public JSONObject getJSONFromUrl(String url) { //attempt to get response from server
         try {
-            DefaultHttpClient httpClient = new DefaultHttpClient(); HttpPost httpPost = new HttpPost(url);
-            HttpResponse httpResponse = httpClient.execute(httpPost); HttpEntity httpEntity = httpResponse.getEntity(); sInputStream = httpEntity.getContent();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            sInputStream = httpEntity.getContent();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -34,15 +37,19 @@ public class JSONParser {
 //read stream into string-builder
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader( sInputStream, "iso-8859-1"), 8);
-            StringBuilder stringBuilder = new StringBuilder(); String line = null;
-            while ((line = reader.readLine()) != null) { stringBuilder.append(line + "\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line + "\n");
             }
             sInputStream.close();
-            sRawJsonString = stringBuilder.toString(); } catch (Exception e) {
+            sRawJsonString = stringBuilder.toString();
+        } catch (Exception e) {
             Log.e("Error reading from Buffer: " + e.toString(), this.getClass().getSimpleName());
         }
         try {
-            sReturnJsonObject = new JSONObject(sRawJsonString); } catch (JSONException e) {
+            sReturnJsonObject = new JSONObject(sRawJsonString);
+        } catch (JSONException e) {
             Log.e("Parser", "Error when parsing data " + e.toString());
         }
 

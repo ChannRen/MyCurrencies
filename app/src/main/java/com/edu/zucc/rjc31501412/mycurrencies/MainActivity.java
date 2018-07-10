@@ -46,7 +46,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static final String FOR = "FOR_CURRENCY";
     public static final String HOM = "HOM_CURRENCY";
 
+//    开发者key
+    private String getKey(String keyName){
+        AssetManager assetManager = this.getResources().getAssets();
+        Properties properties = new Properties(); try {
+            InputStream inputStream = assetManager.open("keys.properties");
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return	properties.getProperty(keyName);
+    }
+
     private String mKey;
+
     public static final String RATES = "rates";
     public static final String URL_BASE =
             "https://openexchangerates.org/api/latest.json?app_id=";
@@ -99,8 +112,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
 
-        mKey = getKey("open_key");
-
         mClacButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
             }
         });
+        mKey = getKey("open_key");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -205,22 +217,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    private String getKey(String keyName){
-        AssetManager assetManager = this.getResources().getAssets(); Properties properties = new Properties(); try {
-            InputStream inputStream = assetManager.open("keys.properties"); properties.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return	properties.getProperty(keyName);
-    }
 
+//    通过json格式获取货币代码，创建私有内部类实现数据的提取
     private class CurrencyConverterTask extends AsyncTask<String,Void,JSONObject> {
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
+//            等待对话框
             progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setTitle("Calculating Result..."); progressDialog.setMessage("One moment please..."); progressDialog.setCancelable(true);
+            progressDialog.setTitle("Calculating Result...");
+            progressDialog.setMessage("One moment please..."); progressDialog.setCancelable(true);
             progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+//                取消
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -241,9 +250,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (jsonObject == null){
                     throw new JSONException("no data available.");
                 }
-                JSONObject jsonRates = jsonObject.getJSONObject(RATES); if (strHomCode.equalsIgnoreCase("USD")){
+                JSONObject jsonRates = jsonObject.getJSONObject(RATES);
+                if (strHomCode.equalsIgnoreCase("USD")){
                     dCalculated = Double.parseDouble(strAmount) / jsonRates.getDouble(strForCode);
-                } else if (strForCode.equalsIgnoreCase("USD")) { dCalculated = Double.parseDouble(strAmount) *
+                } else if (strForCode.equalsIgnoreCase("USD")) {
+                    dCalculated = Double.parseDouble(strAmount) *
                         jsonRates.getDouble(strHomCode) ;
                 }
                 else {
