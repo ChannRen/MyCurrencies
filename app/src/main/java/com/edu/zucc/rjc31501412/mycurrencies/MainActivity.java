@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,12 +45,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static final String FOR = "FOR_CURRENCY";
     public static final String HOM = "HOM_CURRENCY";
 
-
-
     private String mKey;
 
     public static final String RATES = "rates";
-    public static final String URL_BASE ="https://openexchangerates.org/api/latest.json?app_id=";
+    public static final String URL_BASE = "https://openexchangerates.org/api/latest.json?app_id=";
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00000");
     private CurrencyTaskCallback mCurrencyTaskCallback;
 
@@ -70,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         @SuppressWarnings("unchecked")
-        ArrayList<String> arrayList = (ArrayList<String>)
-                getIntent().getSerializableExtra(SplashActivity.KEY_ARRAYLIST);
+        ArrayList<String> arrayList = (ArrayList<String>) getIntent().getSerializableExtra(SplashActivity.KEY_ARRAYLIST);
         Collections.sort(arrayList);
         mCurrencies = arrayList.toArray(new String[arrayList.size()]);
 
@@ -113,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mClacButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isNumeric(String.valueOf(mAmountEditText.getText()))){
+                if (isNumeric(String.valueOf(mAmountEditText.getText()))) {
                     new CurrencyConverterTask().execute(URL_BASE + mKey);
                 } else {
                     Toast.makeText(MainActivity.this, "Not a numeric value, try again.", Toast.LENGTH_LONG).show();
@@ -124,13 +120,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,Trend.class);
+                intent.setClass(MainActivity.this, Trend.class);
                 startActivity(intent);
             }
         });
 
         mKey = getKey("open_key");
     }
+
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager)
@@ -141,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         return false;
     }
+
     private void launchBrowser(String strUri) {
         if (isOnline()) {
             Uri uri = Uri.parse(strUri);
@@ -149,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(intent);
         }
     }
+
     private void invertCurrencies() {
         int nFor = mForSpinner.getSelectedItemPosition();
         int nHom = mHomSpinner.getSelectedItemPosition();
@@ -161,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         PrefsMgr.setString(this, HOM, extractCodeFromCurrency((String)
                 mHomSpinner.getSelectedItem()));
     }
+
     private int findPositionGivenCode(String code, String[] currencies) {
 
         for (int i = 0; i < currencies.length; i++) {
@@ -173,10 +173,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private String extractCodeFromCurrency(String currency) {
-        return (currency).substring(0,3);
+        return (currency).substring(0, 3);
     }
 
-    private String getKey(String keyName){
+    private String getKey(String keyName) {
         AssetManager assetManager = this.getResources().getAssets();
         Properties properties = new Properties();
         try {
@@ -186,15 +186,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  properties.getProperty(keyName);
+        return properties.getProperty(keyName);
 
     }
 
     public static boolean isNumeric(String str) {
-        try{
+        try {
             double dub = Double.parseDouble(str);
-        }
-        catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
@@ -210,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.mnu_invert:
                 invertCurrencies();
                 break;
@@ -231,20 +230,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             case R.id.spn_for:
                 PrefsMgr.setString(this, FOR,
-                        extractCodeFromCurrency((String)mForSpinner.getSelectedItem()));
+                        extractCodeFromCurrency((String) mForSpinner.getSelectedItem()));
                 break;
 
             case R.id.spn_hom:
                 PrefsMgr.setString(this, HOM,
-                        extractCodeFromCurrency((String)mHomSpinner.getSelectedItem()));
+                        extractCodeFromCurrency((String) mHomSpinner.getSelectedItem()));
                 break;
 
             default:
                 break;
         }
-
         mConvertedTextView.setText("");
-
     }
 
     @Override
@@ -254,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private class CurrencyConverterTask extends AsyncTask<String, Void, JSONObject> {
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(MainActivity.this);
@@ -270,10 +268,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     });
             progressDialog.show();
         }
+
         @Override
         protected JSONObject doInBackground(String... params) {
             return new JSONParser().getJSONFromUrl(params[0]);
         }
+
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             double dCalculated = 0.0;
@@ -283,18 +283,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     getSelectedItemPosition()]);
             String strAmount = mAmountEditText.getText().toString();
             try {
-                if (jsonObject == null){
+                if (jsonObject == null) {
                     throw new JSONException("no data available.");
                 }
                 JSONObject jsonRates = jsonObject.getJSONObject(RATES);
-                if (strHomCode.equalsIgnoreCase("USD")){
+                if (strHomCode.equalsIgnoreCase("USD")) {
                     dCalculated = Double.parseDouble(strAmount) / jsonRates.getDouble(strForCode);
                 } else if (strForCode.equalsIgnoreCase("USD")) {
-                    dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode) ;
-                }
-                else {
+                    dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode);
+                } else {
                     dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode)
-                            / jsonRates.getDouble(strForCode) ;
+                            / jsonRates.getDouble(strForCode);
                 }
             } catch (JSONException e) {
                 Toast.makeText(
