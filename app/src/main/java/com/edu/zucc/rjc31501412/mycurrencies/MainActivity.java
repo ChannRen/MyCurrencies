@@ -36,6 +36,7 @@ import java.util.Properties;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Button mClacButton;
+    private Button mTrend;
     private TextView mConvertedTextView;
     private EditText mAmountEditText;
     private Spinner mForSpinner, mHomSpinner;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mClacButton = (Button) findViewById(R.id.btn_calc);
         mForSpinner = (Spinner) findViewById(R.id.spn_for);
         mHomSpinner = (Spinner) findViewById(R.id.spn_hom);
-
+        mTrend = (Button) findViewById(R.id.trendActivity);
 
         @SuppressWarnings("unchecked")
         ArrayList<String> arrayList = (ArrayList<String>)
@@ -104,6 +105,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 new CurrencyConverterTask().execute(URL_BASE+mKey);
+            }
+        });
+        mTrend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,Trend.class);
+                startActivity(intent);
             }
         });
     }
