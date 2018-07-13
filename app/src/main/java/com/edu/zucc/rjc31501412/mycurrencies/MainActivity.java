@@ -29,8 +29,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Properties;
 
 
@@ -301,6 +303,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 e.printStackTrace();
             }
             mConvertedTextView.setText(DECIMAL_FORMAT.format(dCalculated) + "" + strHomCode);
+
+            //存入数据库
+            BeanRecord beanRecord = new BeanRecord();
+            beanRecord.setForCode(strForCode);
+            beanRecord.setForAmount(strAmount);
+            beanRecord.setHomCode(strHomCode);
+            beanRecord.setHomAmount(new DecimalFormat("0.00").format(dCalculated));
+            SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("MM/dd");
+            Date date = new Date(System.currentTimeMillis());
+            beanRecord.setTime(simpleDateFormat.format(date));
+            MyDatabaseManager myDatabaseManager = new MyDatabaseManager(getBaseContext());
+            myDatabaseManager.addData(beanRecord);
+
             progressDialog.dismiss();
 
             //for testing
