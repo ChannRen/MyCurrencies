@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button mTrend;
     private TextView mConvertedTextView;
     private EditText mAmountEditText;
-    private Spinner mForSpinner, mHomSpinner;
+    private AppCompatSpinner mForSpinner, mHomSpinner;
 
     private String[] mCurrencies;
 
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mConvertedTextView = (TextView) findViewById(R.id.txt_converted);
         mAmountEditText = (EditText) findViewById(R.id.edt_amount);
         mClacButton = (Button) findViewById(R.id.btn_calc);
-        mForSpinner = (Spinner) findViewById(R.id.spn_for);
-        mHomSpinner = (Spinner) findViewById(R.id.spn_hom);
+        mForSpinner = (AppCompatSpinner) findViewById(R.id.spn_for);
+        mHomSpinner = (AppCompatSpinner) findViewById(R.id.spn_hom);
         mTrend = (Button) findViewById(R.id.trendActivity);
 
         //controller

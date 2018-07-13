@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyCurrencies</string>
+    <string name="for_text">Foreign Currency</string>
+    <string name="hom_text">Home Currency</string>
+    <string name="for_edit">Enter foreign currency amount here</string>
+    <string name="hom_cal">Calculated result in home currency</string>
+    <string name="btn_cal">Calculate</string>
+    <string name="enter_amount">Enter Amount Here</string>
 </resources>
