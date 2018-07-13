@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Button mClacButton;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00000");
     private CurrencyTaskCallback mCurrencyTaskCallback;
 
-    public static interface CurrencyTaskCallback {
+    public interface CurrencyTaskCallback {
         void executionDone();
     }
 
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         return false;
     }
-
+    //在浏览器中查看
     private void launchBrowser(String strUri) {
         if (isOnline()) {
             Uri uri = Uri.parse(strUri);
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(intent);
         }
     }
-
+    //交换上下
     private void invertCurrencies() {
         int nFor = mForSpinner.getSelectedItemPosition();
         int nHom = mHomSpinner.getSelectedItemPosition();
@@ -155,10 +156,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mHomSpinner.setSelection(nFor);
         mConvertedTextView.setText("");
 
-        PrefsMgr.setString(this, FOR, extractCodeFromCurrency((String)
-                mForSpinner.getSelectedItem()));
-        PrefsMgr.setString(this, HOM, extractCodeFromCurrency((String)
-                mHomSpinner.getSelectedItem()));
+        PrefsMgr.setString(this, FOR, extractCodeFromCurrency((String) mForSpinner.getSelectedItem()));
+        PrefsMgr.setString(this, HOM, extractCodeFromCurrency((String) mHomSpinner.getSelectedItem()));
     }
 
     private int findPositionGivenCode(String code, String[] currencies) {
@@ -277,11 +276,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             double dCalculated = 0.0;
-            String strForCode =
-                    extractCodeFromCurrency(mCurrencies[mForSpinner.getSelectedItemPosition()]);
-            String strHomCode = extractCodeFromCurrency(mCurrencies[mHomSpinner.
-                    getSelectedItemPosition()]);
+
+            String strForCode = extractCodeFromCurrency(mCurrencies[mForSpinner.getSelectedItemPosition()]);
+            String strHomCode = extractCodeFromCurrency(mCurrencies[mHomSpinner.getSelectedItemPosition()]);
             String strAmount = mAmountEditText.getText().toString();
+
             try {
                 if (jsonObject == null) {
                     throw new JSONException("no data available.");
@@ -292,8 +291,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else if (strForCode.equalsIgnoreCase("USD")) {
                     dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode);
                 } else {
-                    dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode)
-                            / jsonRates.getDouble(strForCode);
+                    dCalculated = Double.parseDouble(strAmount) * jsonRates.getDouble(strHomCode) / jsonRates.getDouble(strForCode);
                 }
             } catch (JSONException e) {
                 Toast.makeText(
@@ -304,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 mConvertedTextView.setText("");
                 e.printStackTrace();
             }
-            mConvertedTextView.setText(DECIMAL_FORMAT.format(dCalculated) + " " + strHomCode);
+            mConvertedTextView.setText(DECIMAL_FORMAT.format(dCalculated) + "" + strHomCode);
             progressDialog.dismiss();
 
             //for testing
