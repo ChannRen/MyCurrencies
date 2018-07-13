@@ -37,7 +37,6 @@ import java.util.Properties;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Button mClacButton;
-    private Button mTrend;
     private TextView mConvertedTextView;
     private EditText mAmountEditText;
     private AppCompatSpinner mForSpinner, mHomSpinner;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mClacButton = (Button) findViewById(R.id.btn_calc);
         mForSpinner = (AppCompatSpinner) findViewById(R.id.spn_for);
         mHomSpinner = (AppCompatSpinner) findViewById(R.id.spn_hom);
-        mTrend = (Button) findViewById(R.id.trendActivity);
 
         //controller
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -118,15 +116,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         });
-        mTrend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, Trend.class);
-                startActivity(intent);
-            }
-        });
-
         mKey = getKey("open_key");
     }
 
@@ -215,6 +204,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case R.id.mnu_codes:
                 launchBrowser(SplashActivity.URL_CODES);
+                break;
+            case R.id.mnu_search:
+                Intent intent = new Intent(this,RecordActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mnu_trend:
+                Intent intent1 = new Intent(this,Trend.class);
+                startActivity(intent1);
                 break;
             case R.id.mnu_exit:
                 finish();

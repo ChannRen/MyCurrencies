@@ -70,31 +70,8 @@ public class Trend extends AppCompatActivity {
         LineChart mLineChart = (LineChart) findViewById(R.id.lineChart);
         Button chartEx = (Button) findViewById(R.id.chart_ex);
         mForSpinner = (AppCompatSpinner) findViewById(R.id.trend_for_spinner);
-        mHomSpinner = (AppCompatSpinner) findViewById(R.id.trend_for_spinner);
+        mHomSpinner = (AppCompatSpinner) findViewById(R.id.trend_hom_spinner);
 
-        //spinner适配器
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.spinner_closed,
-                mCurrencies
-        );
-        //spinner下拉
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mForSpinner.setAdapter(arrayAdapter);
-        mHomSpinner.setAdapter(arrayAdapter);
-
-        mForSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         //显示边界
         mLineChart.setDrawBorders(true);

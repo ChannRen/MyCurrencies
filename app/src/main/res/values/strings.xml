@@ -6,4 +6,11 @@
     <string name="hom_cal">Calculated result in home currency</string>
     <string name="btn_cal">Calculate</string>
     <string name="enter_amount">Enter Amount Here</string>
+    <string name="search">Please enter the query information</string>
+
+    <string name="Time">Time</string>
+    <string name="Original_currency">Foreign</string>
+    <string name="Number_of_queries">Amount</string>
+    <string name="Target_currency">Home</string>
+    <string name="result">Result</string>
 </resources>
