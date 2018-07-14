@@ -55,7 +55,7 @@ public class SplashActivity extends Activity {
                 mainIntent.putExtra(KEY_ARRAYLIST,mCurrencies);
                 startActivity(mainIntent);
 
-                finish(); 
+                finish();
             } catch (JSONException e) {
                 Toast.makeText(
                         SplashActivity.this,
