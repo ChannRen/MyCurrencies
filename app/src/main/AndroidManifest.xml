@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Trend" />
-        <activity android:name=".RecordActivity"></activity>
+        <activity android:name=".RecordActivity" />
+        <activity android:name=".ChinaRate"></activity>
     </application>
 
 </manifest>

@@ -63,7 +63,7 @@ public class Trend extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setTitle("Trend Chart");
+                actionBar.setTitle("Trend Chart");
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }

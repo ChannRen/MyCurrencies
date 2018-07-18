@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/nav1_exchange"
+            android:title="Invert Codes" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/nav2_search"
+            android:title="Active Codes" />
+        <item
+            android:id="@+id/nav_record"
+            android:icon="@drawable/nav3_history"
+            android:title="Record Table"/>
+        <item
+            android:id="@+id/nav_Trend"
+            android:icon="@drawable/nav4_trend"
+            android:title="Trend Chart"/>
+        <item
+            android:id="@+id/nav_CNY"
+            android:icon="@drawable/nav5_cny"
+            android:title="CNY Rates"/>
+    </group>
+
+    <item android:title="More">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/nav_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/nav6_exit"
+                android:title="Exit" />
+        </menu>
+    </item>
+</menu>

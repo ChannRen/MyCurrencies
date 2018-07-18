@@ -13,4 +13,8 @@
     <string name="Number_of_queries">Amount</string>
     <string name="Target_currency">Home</string>
     <string name="result">Result</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
