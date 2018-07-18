@@ -6,7 +6,7 @@ public class BeanRecord {
     private String forAmount;
     private String homAmount;
     private String time;
-    public BeanRecord(){};
+    public BeanRecord(){}
     public BeanRecord(String forCode,String forAmount,String homCode,String homAmount,String time)
     {
         this.forCode = forCode;

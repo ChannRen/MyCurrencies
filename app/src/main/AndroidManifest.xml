@@ -25,7 +25,7 @@
         </activity>
         <activity android:name=".Trend" />
         <activity android:name=".RecordActivity" />
-        <activity android:name=".ChinaRate"></activity>
+        <activity android:name=".ChinaRateActivity"></activity>
     </application>
 
 </manifest>
