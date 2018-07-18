@@ -11,8 +11,8 @@
                 android:radius="10dip"
                 />
             <stroke
-                android:width="2px"
-                android:color="#00CED1"/>
+                android:width="1dp"
+                android:color="@color/yin_se"/>
         </shape>
     </item>
 </layer-list>

@@ -25,16 +25,37 @@
             android:layout_margin="10dp"
             android:textSize="24sp"
             android:textColor="@color/black"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/yin_se"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spn_for"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             android:popupBackground="@color/white">
         </android.support.v7.widget.AppCompatSpinner>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/yin_se"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/for_edit"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"/>
         <EditText
             android:id="@+id/edt_amount"
             android:layout_width="match_parent"
@@ -46,14 +67,16 @@
             android:padding="5dp"
             android:singleLine="true"
             android:textSize="24sp"
-            android:hint="@string/enter_amount"
             android:background="@drawable/edit_bg"
             android:inputType="number"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
         android:elevation="4dp"
         android:background="@drawable/card"
         android:orientation="vertical">
@@ -64,23 +87,34 @@
             android:layout_margin="10dp"
             android:textSize="24sp"
             android:textColor="@color/black"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/yin_se"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spn_hom"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginTop="0dp"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/yin_se"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hom_cal"
-
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
             android:textSize="16sp"/>
         <TextView
             android:id="@+id/txt_converted"
@@ -92,6 +126,7 @@
             android:layout_marginTop="0dp"
             android:padding="5dp"
             android:textSize="24sp"
+            android:textColor="@color/black"
             android:background="@drawable/edit_bg"/>
 
     </LinearLayout>
@@ -99,7 +134,7 @@
         android:id="@+id/btn_calc"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_margin="10dp"
+        android:layout_margin="16dp"
         android:text="@string/btn_cal"
         android:textSize="18sp"
         android:backgroundTint="#00CED1"
