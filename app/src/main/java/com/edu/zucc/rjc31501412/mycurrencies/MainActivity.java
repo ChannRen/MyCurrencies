@@ -1,5 +1,6 @@
 package com.edu.zucc.rjc31501412.mycurrencies;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,7 +26,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +43,7 @@ import java.util.Properties;
 
 
 public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
 
     private Button mClacButton;
     private TextView mConvertedTextView;
@@ -76,6 +76,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         @SuppressWarnings("unchecked")
         ArrayList<String> arrayList = (ArrayList<String>) getIntent().getSerializableExtra(SplashActivity.KEY_ARRAYLIST);
@@ -139,6 +150,7 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
+
     //在浏览器中查看
     private void launchBrowser(String strUri) {
         if (isOnline()) {
@@ -148,6 +160,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
     }
+
     //交换上下
     private void invertCurrencies() {
         int nFor = mForSpinner.getSelectedItemPosition();
@@ -194,38 +207,6 @@ public class MainActivity extends AppCompatActivity
             double dub = Double.parseDouble(str);
         } catch (NumberFormatException nfe) {
             return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.mnu_invert:
-                invertCurrencies();
-                break;
-            case R.id.mnu_codes:
-                launchBrowser(SplashActivity.URL_CODES);
-                break;
-            case R.id.mnu_search:
-                Intent intent = new Intent(this,RecordActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.mnu_trend:
-                Intent intent1 = new Intent(this,Trend.class);
-                startActivity(intent1);
-                break;
-            case R.id.mnu_exit:
-                finish();
-                break;
         }
         return true;
     }
@@ -318,7 +299,7 @@ public class MainActivity extends AppCompatActivity
             beanRecord.setForAmount(strAmount);
             beanRecord.setHomCode(strHomCode);
             beanRecord.setHomAmount(new DecimalFormat("0.00").format(dCalculated));
-            SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("MM/dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd");
             Date date = new Date(System.currentTimeMillis());
             beanRecord.setTime(simpleDateFormat.format(date));
             MyDatabaseManager myDatabaseManager = new MyDatabaseManager(getBaseContext());
@@ -333,4 +314,50 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.nav_exchange:
+                invertCurrencies();
+                break;
+            case R.id.nav_search:
+                launchBrowser(SplashActivity.URL_CODES);
+                break;
+            case R.id.nav_record:
+                Intent intent = new Intent(this, RecordActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_Trend:
+                Intent intent1 = new Intent(this, Trend.class);
+                startActivity(intent1);
+                break;
+            case R.id.nav_CNY:
+
+                break;
+            case R.id.nav_share:
+
+                break;
+            case R.id.nav_exit:
+                finish();
+                break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
