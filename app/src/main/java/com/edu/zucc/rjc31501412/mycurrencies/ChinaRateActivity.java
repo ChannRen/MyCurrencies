@@ -98,7 +98,6 @@ public class ChinaRateActivity extends AppCompatActivity {
 
                     money = rates.getDouble("CNY")/rates.getDouble(key)*100;
                     beanCNY = new BeanCNY(forC, money+"", money+"");
-                    Log.e("1",beanCNY.getForCurrency());
                     beanCNYs.add(beanCNY);
                 }
                 chinaRateAdapter = new ChinaRateAdapter(ChinaRateActivity.this,R.layout.chinarate_list,beanCNYs);

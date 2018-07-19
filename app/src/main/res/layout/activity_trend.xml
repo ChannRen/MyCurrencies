@@ -4,10 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
     <LinearLayout
@@ -54,5 +53,6 @@
             android:backgroundTint="#00CED1"
             android:text="Start"
             android:textColor="@color/white"/>
+
     </LinearLayout>
 </LinearLayout>

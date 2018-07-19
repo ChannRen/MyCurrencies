@@ -1,6 +1,5 @@
 package com.edu.zucc.rjc31501412.mycurrencies;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +38,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Properties;
 
+import static com.edu.zucc.rjc31501412.mycurrencies.SplashActivity.KEY_ARRAYLIST;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
@@ -50,8 +49,9 @@ public class MainActivity extends AppCompatActivity
     private EditText mAmountEditText;
     private AppCompatSpinner mForSpinner, mHomSpinner;
 
-    private String[] mCurrencies;
-
+    public String[] mCurrencies;
+    public static String[] mCurrenciesForMain;
+    public static final String stringx = "key_arraylist";
     public static final String FOR = "FOR_CURRENCY";
     public static final String HOM = "HOM_CURRENCY";
 
@@ -89,10 +89,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         @SuppressWarnings("unchecked")
-        ArrayList<String> arrayList = (ArrayList<String>) getIntent().getSerializableExtra(SplashActivity.KEY_ARRAYLIST);
+        ArrayList<String> arrayList = (ArrayList<String>) getIntent().getSerializableExtra(KEY_ARRAYLIST);
         Collections.sort(arrayList);
         mCurrencies = arrayList.toArray(new String[arrayList.size()]);
-
+        mCurrenciesForMain = mCurrencies;
         mConvertedTextView = (TextView) findViewById(R.id.txt_converted);
         mAmountEditText = (EditText) findViewById(R.id.edt_amount);
         mClacButton = (Button) findViewById(R.id.btn_calc);
@@ -343,6 +343,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_Trend:
                 Intent intent1 = new Intent(this, Trend.class);
+                intent1.putExtra(stringx,mCurrencies);
                 startActivity(intent1);
                 break;
             case R.id.nav_CNY:
